@@ -24,7 +24,36 @@ function getHumanChoice() {
     return humanChoice;
 }
 
-let PC_result = getComputerChoice();
-let user_result = getHumanChoice();
-console.log(PC_result);
-console.log(user_result);
+// Global variables
+let humanScore = 0;
+let computerScore = 0;
+
+// Create function called playRound
+    // Make two arguments called humanChoice and computerChoice that logs the choices
+    // Compare the results
+    // Print winner for the round through console.log (ex. You lose! Paper breats rock.)
+    // Increment the scores based on round winner
+function playRound() {
+    let humanChoice = getHumanChoice();
+    let computerChoice = getComputerChoice();
+
+    // Note to self: lean more about js mapping later.
+    const winPairs = {
+        rock: "scissors",
+        paper: "rock",
+        scissors: "paper"
+    };
+
+    if (humanChoice === computerChoice) {
+        console.log("It's a tie!");
+    } else if (winPairs[humanChoice] === computerChoice) {
+        console.log(`You win! ${humanChoice} beats ${computerChoice}.`);
+        humanScore++;
+    } else {
+        console.log(`You lose! ${computerChoice} beats ${humanChoice}.`);
+        computerScore++;
+    }
+}
+
+playRound();
+console.log(`Score: User ${humanScore} - Computer ${computerScore}.`);
