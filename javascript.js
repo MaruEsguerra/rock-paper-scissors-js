@@ -34,8 +34,8 @@ let computerScore = 0;
     // Print winner for the round through console.log (ex. You lose! Paper breats rock.)
     // Increment the scores based on round winner
 function playRound() {
-    let humanChoice = getHumanChoice();
-    let computerChoice = getComputerChoice();
+    const humanChoice = getHumanChoice();
+    const computerChoice = getComputerChoice();
 
     // Note to self: lean more about js mapping later.
     const winPairs = {
@@ -55,5 +55,21 @@ function playRound() {
     }
 }
 
-playRound();
-console.log(`Score: User ${humanScore} - Computer ${computerScore}.`);
+// Create a function called playGame
+    // Move global variables and the playRound function inside playGame (unless you know loops)
+    // Make it so user can play five rounds
+function playGame() {
+    for (let i = 0; i < 5; i++) {
+        playRound();
+        console.log(`Scoreboard: User ${humanScore} - Computer ${computerScore}.`);
+    }
+    if (humanScore > computerScore) {
+        console.log("Congratulations! You win!");
+    } else if (computerScore > humanScore) {
+        console.log("Aww, you lose. Try again next time!");
+    } else {
+        console.log("It's a tie! Try again next time!");
+    }
+}
+
+playGame();
