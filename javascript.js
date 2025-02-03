@@ -13,28 +13,30 @@ function getComputerChoice() {
     }
 }
 
-// Create a function called getHumanChoice
-    // Use prompt to return one of the valid choices: rock, paper, scissors.
-        // Potentially code defensively so that the human can only choose rock, paper, or scissors.
-function getHumanChoice() {
-    let humanChoice = prompt("Rock, paper, or scissors?").toLowerCase();
-    while (humanChoice !== "rock" && humanChoice !== "paper" && humanChoice !== "scissors") {
-        humanChoice = prompt("Please pick only among: rock, paper, or scissors.").toLowerCase();
-    }
-    return humanChoice;
-}
-
 // Global variables
 let humanScore = 0;
 let computerScore = 0;
+
+// Event Listener Buttons Area
+    // If user picks rock:
+    document.querySelector("#rock").addEventListener("click", ()=>{
+        playRound("rock");
+    });
+    // If user picks paper:
+    document.querySelector("#paper").addEventListener("click", ()=>{
+        playRound("paper");
+    });
+    // If user picks scissors:
+    document.querySelector("#scissors").addEventListener("click", ()=>{
+        playRound("scissors");
+    });
 
 // Create function called playRound
     // Make two arguments called humanChoice and computerChoice that logs the choices
     // Compare the results
     // Print winner for the round through console.log (ex. You lose! Paper breats rock.)
     // Increment the scores based on round winner
-function playRound() {
-    const humanChoice = getHumanChoice();
+function playRound(humanChoice) {
     const computerChoice = getComputerChoice();
 
     // Note to self: lean more about js mapping later.
@@ -45,31 +47,30 @@ function playRound() {
     };
 
     if (humanChoice === computerChoice) {
-        console.log("It's a tie!");
+        document.querySelector("#results").textContent = "It's a tie!";
     } else if (winPairs[humanChoice] === computerChoice) {
-        console.log(`You win! ${humanChoice} beats ${computerChoice}.`);
+        document.querySelector("#results").textContent = `You win! ${humanChoice} beats ${computerChoice}.`;
         humanScore++;
     } else {
-        console.log(`You lose! ${computerChoice} beats ${humanChoice}.`);
+        document.querySelector("#results").textContent = `You lose! ${computerChoice} beats ${humanChoice}.`;
         computerScore++;
     }
-}
 
-// Create a function called playGame
-    // Move global variables and the playRound function inside playGame (unless you know loops)
-    // Make it so user can play five rounds
-function playGame() {
-    for (let i = 0; i < 5; i++) {
-        playRound();
-        console.log(`Scoreboard: User ${humanScore} - Computer ${computerScore}.`);
-    }
-    if (humanScore > computerScore) {
-        console.log("Congratulations! You win!");
-    } else if (computerScore > humanScore) {
-        console.log("Aww, you lose. Try again next time!");
-    } else {
-        console.log("It's a tie! Try again next time!");
+    document.querySelector("#score").textContent = `Scoreboard: User ${humanScore} - Computer ${computerScore}.`;
+
+    if (humanScore == 5) {
+        document.querySelector("#winner").textContent = "Congratulations! You win!";
+        gameOver();
+    } else if (computerScore == 5) {
+        document.querySelector("#winner").textContent = "Aww, you lose. Try again next time!";
+        gameOver();
     }
 }
 
-playGame();
+// Ends the game when one side reaches five points
+function gameOver() {
+    const buttons = document.querySelectorAll("button");
+    for (let button of buttons) {
+        button.disabled = true;
+    }
+}
